@@ -9,6 +9,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import Footer from "@/components/ui/footer";
+import Title from "@/components/ui/title";
 import {
   Tooltip,
   TooltipContent,
@@ -84,11 +86,9 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex flex-col items-center relative justify-center min-h-screen py-2 gap-11 bg-[#0e0101]">
+    <div className="flex flex-col items-center relative justify-center min-h-screen py-2 gap-5 sm:gap-11 bg-[#0e0101] overflow-hidden">
       <div className="flex rounded-full bg-[#bd0302] absolute -top-[77rem] left-50 h-[80rem] w-[110rem] blur-xl" />
-      <p className="text-[#ff3332] text-6xl font-bold uppercase neon-text">
-        SIGN UP
-      </p>
+      <Title title="Sign Up" />
 
       <TooltipProvider>
         <Tooltip>
@@ -103,8 +103,8 @@ const Signup = () => {
         </Tooltip>
       </TooltipProvider>
 
-      <form className="flex flex-col gap-4">
-        <div className="flex flex-col gap-2">
+      <form className="flex flex-col gap-5 items-center justify-center">
+        <div className="flex flex-col gap-2 relative">
           <label className="uppercase font-bold text-sm text-zinc-300">
             USERNAME
           </label>
@@ -123,16 +123,16 @@ const Signup = () => {
               errors.username
                 ? "border-[#ff3332]"
                 : "border-zinc-500 focus:border-zinc-50"
-            } border rounded-none w-[25rem] h-12 text-zinc-100 font-bold px-3 outline-none transition-all`}
+            } border rounded-none w-64 md:w-[25rem] h-10 sm:h-12 text-zinc-100 font-bold px-3 outline-none transition-all`}
           />
           {errors.username && (
-            <p className="text-[#ff3332] text-sm font-bold">
+            <p className="text-[#ff3332] text-sm absolute bottom-[-1.2rem] font-bold">
               O Username é muito curto
             </p>
           )}
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 relative">
           <label className="uppercase font-bold text-sm text-zinc-300">
             PASSWORD
           </label>
@@ -152,11 +152,11 @@ const Signup = () => {
               errors.password
                 ? "border-[#ff3332]"
                 : "border-zinc-500 focus:border-zinc-50"
-            } border rounded-none w-[25rem] h-12 text-zinc-100 font-bold px-3 outline-none transition-all`}
+            } border rounded-none w-64 md:w-[25rem] h-10 sm:h-12 text-zinc-100 font-bold px-3 outline-none transition-all`}
           />
           {errors.password && (
-            <p className="text-[#ff3332] text-sm font-bold">
-              A senha precisa ter no mínimo 6 caracteres
+            <p className="text-[#ff3332] text-sm absolute bottom-[-1.2rem] font-bold">
+              Senha muito curta
             </p>
           )}
         </div>
@@ -177,15 +177,8 @@ const Signup = () => {
                 setErrors({ ...errors, token: false });
               }
             }}
-            className={`bg-transparent ${
-              errors.token
-                ? "border-[#ff3332]"
-                : "border-zinc-500 focus:border-zinc-50"
-            } border rounded-none w-[25rem] h-12 text-zinc-100 font-bold px-3 outline-none transition-all`}
+            className={`bg-transparent border-zinc-500 focus:border-zinc-50 border rounded-none w-64 md:w-[25rem] h-10 sm:h-12 text-zinc-100 font-bold px-3 outline-none transition-all`}
           />
-          {errors.token && (
-            <p className="text-[#ff3332] text-sm font-bold">Token inválido</p>
-          )}
         </div>
 
         <Button
@@ -199,12 +192,12 @@ const Signup = () => {
 
               if (!res?.error) {
                 setDialogContent({
-                  message: "Conta criada com sucesso!",
+                  message: "[✓] Conta criada com sucesso!",
                   error: false,
                 });
               } else {
                 setDialogContent({
-                  message: "Falha ao criar conta",
+                  message: "[ ! ] Falha ao criar conta",
                   error: true,
                 });
               }
@@ -219,7 +212,7 @@ const Signup = () => {
               setIsDialogOpen(true);
             }, 1000);
           }}
-          className="bg-transparent rounded-sm border-2 w-[25rem] h-14 mt-4 text-[#ff3332] neon-text font-bold text-lg border-[#ff3332] hover:bg-[#ff3332] hover:text-[#0e0101] hover:border-[#0e0101] hover:scale-110 transform transition-all"
+          className="bg-transparent rounded-sm border-2 w-64 md:w-[25rem] h-12 sm:h-14 mt-4 text-[#ff3332] neon-text font-bold text-lg border-[#ff3332] hover:bg-[#ff3332] hover:text-[#0e0101] hover:border-[#0e0101] hover:scale-110 transform transition-all"
         >
           SUBMIT
         </Button>
@@ -242,12 +235,12 @@ const Signup = () => {
         <DialogContent
           className={`${
             dialogContent.error ? "bg-[#ff3332]" : "bg-[#28c45c]"
-          } rounded-none`}
+          } rounded-none w-72 sm:w-96 h-28 sm:h-32 items-center justify-center`}
         >
           <DialogHeader>
-            <DialogTitle className="text-zinc-900 uppercase text-center font-bold">
+            <DialogTitle className="text-zinc-900 uppercase text-base sm:text-xl text-center font-bold">
               {dialogContent.error
-                ? "Falha ao criar conta"
+                ? "[ ! ] Falha ao criar conta"
                 : dialogContent.message}
             </DialogTitle>
             {dialogContent.error && (
@@ -259,12 +252,7 @@ const Signup = () => {
         </DialogContent>
       </Dialog>
 
-      <footer className="flex absolute bottom-0 gap-1 mb-11 w-full items-center justify-center text-center">
-        <h2>Produced By </h2>
-        <Link href="" className="text-[#ff3332] hover:neon-text transition-all">
-          Quackity Studios
-        </Link>
-      </footer>
+      <Footer />
     </div>
   );
 };

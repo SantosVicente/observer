@@ -63,12 +63,12 @@
 
   .neon-text {
     line-height: 2;
-    text-shadow: 0 0 5px #ff3332, 0 0 10px #bd0302;
+    text-shadow: 0 0 4px #ff3332, 0 0 9px #bd0302;
   }
 
   .neon-text-blue {
     line-height: 2;
-    text-shadow: 0 0 5px #0ce4d8, 0 0 10px #0ce4d8;
+    text-shadow: 0 0 1px #0ce4d8, 0 0 6px #0ce4d8;
   }
 
   .box-shadow {

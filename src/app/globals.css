@@ -56,9 +56,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background-color: #0e0101;
   }
   body {
     @apply bg-background text-foreground;
+    background-color: #0e0101;
   }
 
   .neon-text {

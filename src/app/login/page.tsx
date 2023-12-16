@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -17,10 +16,9 @@ import {
 } from "@/components/ui/tooltip";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import { send } from "process";
 import { useState } from "react";
 
-const Signup = () => {
+const Login = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogContent, setDialogContent] = useState({
     message: "",
@@ -30,41 +28,25 @@ const Signup = () => {
   const [values, setValues] = useState({
     username: "",
     password: "",
-    token: "",
   });
 
   const [errors, setErrors] = useState({
     username: false,
     password: false,
-    token: false,
   });
 
-  const isValidToken = (token: string) => {
-    if (token === "123456") {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
   const verifyValues = () => {
-    if (values.username.length < 3) {
+    if (values.username.length < 1) {
       return {
         error: true,
-        message: "O Username é muito curto",
+        message: "Username inválido",
         field: "username",
       };
-    } else if (values.password.length < 6) {
+    } else if (values.password.length < 1) {
       return {
         error: true,
-        message: "A senha precisa ter no mínimo 6 caracteres",
+        message: "Senha inválida",
         field: "password",
-      };
-    } else if (!isValidToken(values.token)) {
-      return {
-        error: true,
-        message: "Token inválido",
-        field: "token",
       };
     }
   };
@@ -87,7 +69,7 @@ const Signup = () => {
     <div className="flex flex-col items-center relative justify-center min-h-screen py-2 gap-11 bg-[#0e0101]">
       <div className="flex rounded-full bg-[#bd0302] absolute -top-[77rem] left-50 h-[80rem] w-[110rem] blur-xl" />
       <p className="text-[#ff3332] text-6xl font-bold uppercase neon-text">
-        SIGN UP
+        LOGIN
       </p>
 
       <TooltipProvider>
@@ -113,11 +95,6 @@ const Signup = () => {
             required
             onChange={(e) => {
               setValues({ ...values, username: e.target.value });
-              if (e.target.value.length < 3) {
-                setErrors({ ...errors, username: true });
-              } else {
-                setErrors({ ...errors, username: false });
-              }
             }}
             className={`bg-transparent ${
               errors.username
@@ -125,11 +102,6 @@ const Signup = () => {
                 : "border-zinc-500 focus:border-zinc-50"
             } border rounded-none w-[25rem] h-12 text-zinc-100 font-bold px-3 outline-none transition-all`}
           />
-          {errors.username && (
-            <p className="text-[#ff3332] text-sm font-bold">
-              O Username é muito curto
-            </p>
-          )}
         </div>
 
         <div className="flex flex-col gap-2">
@@ -142,11 +114,6 @@ const Signup = () => {
             required
             onChange={(e) => {
               setValues({ ...values, password: e.target.value });
-              if (e.target.value.length < 6) {
-                setErrors({ ...errors, password: true });
-              } else {
-                setErrors({ ...errors, password: false });
-              }
             }}
             className={`bg-transparent ${
               errors.password
@@ -154,38 +121,6 @@ const Signup = () => {
                 : "border-zinc-500 focus:border-zinc-50"
             } border rounded-none w-[25rem] h-12 text-zinc-100 font-bold px-3 outline-none transition-all`}
           />
-          {errors.password && (
-            <p className="text-[#ff3332] text-sm font-bold">
-              A senha precisa ter no mínimo 6 caracteres
-            </p>
-          )}
-        </div>
-
-        <div className="flex flex-col gap-2">
-          <label className="uppercase font-bold text-sm text-zinc-300">
-            TOKEN
-          </label>
-          <input
-            value={values.token}
-            type="password"
-            required
-            onChange={(e) => {
-              setValues({ ...values, token: e.target.value });
-              if (!isValidToken(e.target.value)) {
-                setErrors({ ...errors, token: true });
-              } else {
-                setErrors({ ...errors, token: false });
-              }
-            }}
-            className={`bg-transparent ${
-              errors.token
-                ? "border-[#ff3332]"
-                : "border-zinc-500 focus:border-zinc-50"
-            } border rounded-none w-[25rem] h-12 text-zinc-100 font-bold px-3 outline-none transition-all`}
-          />
-          {errors.token && (
-            <p className="text-[#ff3332] text-sm font-bold">Token inválido</p>
-          )}
         </div>
 
         <Button
@@ -199,12 +134,12 @@ const Signup = () => {
 
               if (!res?.error) {
                 setDialogContent({
-                  message: "Conta criada com sucesso!",
+                  message: "[✓] CONNEXÃO ESTABELECIDA",
                   error: false,
                 });
               } else {
                 setDialogContent({
-                  message: "Falha ao criar conta",
+                  message: "[ ! ] FALHA AO LOGAR",
                   error: true,
                 });
               }
@@ -224,12 +159,13 @@ const Signup = () => {
           SUBMIT
         </Button>
         <Link
-          href="/login"
+          href="/signup"
           className="uppercase font-bold text-sm text-center underline"
         >
-          Already have an account? Login
+          {"Don't have an account? Sign up"}
         </Link>
       </form>
+
       <Dialog
         open={isDialogOpen}
         onOpenChange={() => {
@@ -245,9 +181,9 @@ const Signup = () => {
           } rounded-none`}
         >
           <DialogHeader>
-            <DialogTitle className="text-zinc-900 uppercase text-center font-bold">
+            <DialogTitle className="text-zinc-900 uppercase text-center text-lg font-bold">
               {dialogContent.error
-                ? "Falha ao criar conta"
+                ? "[ ! ] Falha ao logar"
                 : dialogContent.message}
             </DialogTitle>
             {dialogContent.error && (
@@ -269,4 +205,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Login;

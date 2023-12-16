@@ -252,7 +252,7 @@ const Signup = () => {
         </DialogContent>
       </Dialog>
 
-      <Footer />
+      <Footer isSignup />
     </div>
   );
 };

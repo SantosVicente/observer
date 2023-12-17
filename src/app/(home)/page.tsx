@@ -92,7 +92,7 @@ export default function Home() {
           Welcome to{" "}
         </h1>
 
-        <Title title="Purgatory" />
+        <Title title="Observer" />
       </div>
 
       <div className="flex items-center justify-center gap-0 md:gap-8">
@@ -152,7 +152,7 @@ export default function Home() {
             }}
             className="scale-75 md:scale-100 bg-transparent rounded-sm border-2 w-44 h-14 text-[#ff3332] neon-text font-bold text-lg border-[#ff3332] hover:bg-[#ff3332] hover:text-[#0e0101] hover:border-[#0e0101] sm:hover:scale-110 transform transition-all"
           >
-            COMPETITOR
+            PARTICIPANT
           </Button>
         </Link>
 

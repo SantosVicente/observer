@@ -2,18 +2,23 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Button } from "./button";
-import { Pause, Play, Volume1, Volume2, VolumeX } from "lucide-react";
+import { Menu, Pause, Play, Volume1, Volume2, VolumeX } from "lucide-react";
 import { Slider } from "./slider";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "./sheet";
 
 const Starter = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const [status, setStatus] = useState(true);
   const [volume, setVolume] = useState(0.5);
-  const [pathname, setPathname] = useState("");
 
   useEffect(() => {
-    setPathname(window.location.pathname);
     if (audioRef.current && window.location.pathname === "/") {
       setStatus(false);
       audioRef.current.play();
@@ -55,27 +60,54 @@ const Starter = () => {
 
   return (
     <>
-      {pathname !== "/dashboard" && (
-        <div className="absolute top-0 right-0 z-50 mt-4 mr-4 flex gap-6">
-          <Button
-            onClick={playStop}
-            className="
+      <div className="absolute top-0 right-0 z-50 mt-4 mr-4 flex gap-6 ">
+        <Sheet>
+          <SheetTrigger>
+            <Menu size={24} />
+          </SheetTrigger>
+          <SheetContent>
+            <SheetHeader>
+              <SheetTitle>Menu</SheetTitle>
+            </SheetHeader>
+            <div
+              className="
+              flex flex-col gap-6 mt-7"
+            >
+              <div
+                className="
+              flex flex-col gap-3"
+              >
+                <p>Pausar Música</p>
+                <Button
+                  onClick={playStop}
+                  className="
             flex items-center justify-center w-12 gap-2"
-          >
-            {status ? <Play size={23} /> : <Pause size={23} />}
-          </Button>
-          <div className="flex items-center justify-center w-40 gap-2">
-            {volume === 0 ? (
-              <VolumeX size={24} />
-            ) : volume < 0.5 ? (
-              <Volume1 size={24} />
-            ) : (
-              <Volume2 size={24} />
-            )}
-            <VolumeControl />
-          </div>
-        </div>
-      )}
+                >
+                  {status ? <Play size={23} /> : <Pause size={23} />}
+                </Button>
+              </div>
+
+              <div
+                className="
+              flex flex-col gap-3"
+              >
+                <p>Volume</p>
+                <div className="flex items-center justify-center w-40 gap-2">
+                  {volume === 0 ? (
+                    <VolumeX size={24} />
+                  ) : volume < 0.5 ? (
+                    <Volume1 size={24} />
+                  ) : (
+                    <Volume2 size={24} />
+                  )}
+                  <VolumeControl />
+                </div>
+              </div>
+            </div>
+          </SheetContent>
+        </Sheet>
+      </div>
+
       <audio ref={audioRef} loop src="/audios/trilha.mp3"></audio>
     </>
   );

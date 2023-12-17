@@ -74,20 +74,16 @@ const Dashboard = () => {
     password: "",
   });
 
-  const audioRef = useRef<HTMLAudioElement>(null);
-
   useEffect(() => {
-    setUser(
-      JSON.parse(
-        localStorage.getItem("user") ||
-          "{username: 'User', password: 'Password'}"
-      )
-    );
-
-    if (audioRef.current) {
-      audioRef.current.play();
+    //trate para quando não tiver nada no localstorage
+    const user = localStorage.getItem("user");
+    if (user) {
+      setUser(JSON.parse(user));
     } else {
-      console.log("audioRef.current is not defined");
+      setUser({
+        username: "user",
+        password: "password",
+      });
     }
   }, []);
 
@@ -136,20 +132,20 @@ const Dashboard = () => {
           >
             <p
               className="
-          text-zinc-300 text-xl md:text-2xl font-bold uppercase neon-text"
+          text-zinc-300 text-xs text-center mx-7 md:text-2xl font-bold uppercase neon-text"
             >
               Entre muitos, você foi escolhido para participar desse projeto.
             </p>
             <p
               className="
-          text-zinc-300 text-xl md:text-2xl font-bold uppercase neon-text"
+          text-zinc-300 text-xs text-center mx-7 md:text-2xl font-bold uppercase neon-text"
             >
               Você foi escolhido por ter um perfil que se encaixa no que estamos
               procurando.
             </p>
             <p
               className="
-          text-zinc-300 text-xl md:text-2xl font-bold uppercase neon-text"
+          text-zinc-300 text-xs text-center mx-7 md:text-2xl font-bold uppercase neon-text"
             >
               E agora só tem uma escolha que você pode fazer
             </p>
@@ -159,7 +155,7 @@ const Dashboard = () => {
               onClick={() => {
                 setPage(1);
               }}
-              className="scale-75 hover:box-shadow md:scale-100 mt-10 bg-transparent rounded-sm border-2 border-dashed w-44 h-14 text-[#ff3332] neon-text font-bold text-2xl border-[#ff3332] hover:bg-[#ff3332] hover:text-[#0e0101] hover:border-[#0e0101] sm:hover:scale-110 transform transition-all"
+              className="scale-75 hover:box-shadow md:scale-100 mt-5 sm:mt-10 bg-transparent rounded-sm border-2 border-dashed w-44 h-14 text-[#ff3332] neon-text font-bold text-2xl border-[#ff3332] hover:bg-[#ff3332] hover:text-[#0e0101] hover:border-[#0e0101] sm:hover:scale-110 transform transition-all"
             >
               YES
             </Button>
@@ -169,7 +165,10 @@ const Dashboard = () => {
 
       {page === 1 && (
         <>
-          <Title title="Are you ready?" />
+          <p className="text-[#ff3332] text-3xl md:text-5xl font-bold uppercase neon-text">
+            {"Are you ready?"}
+          </p>
+
           <p className="text-[#ff3332] text-2xl md:text-4xl font-bold uppercase neon-text">
             {"You can't go back"}
           </p>
@@ -234,40 +233,53 @@ const Dashboard = () => {
               Você vai precisar
             </p>
 
-            <Button
-              variant={"outline"}
-              /* scale-75 hover:box-shadow md:scale-100 mt-10 bg-transparent rounded-sm border-2 border-dashed w-44 h-14 text-[#ff3332] neon-text font-bold text-2xl border-[#ff3332] hover:bg-[#ff3332] hover:text-[#0e0101] hover:border-[#0e0101] sm:hover:scale-110 transform transition-all */
-              className="scale-75 md:scale-100 mt-10 bg-transparent rounded-sm border-2 border-dashed w-44 h-14 text-[#ff3332]  text-2xl border-[#ff3332] sm:hover:scale-110 transform transition-all relative text-center font-bold neon-text hover:bg-transparent"
-              onMouseDown={handleMouseDown}
-            >
-              {isHolding && (
-                <div
-                  className="absolute inset-0 bg-[#ff3332] rounded-md"
-                  style={{ width: `${progress}%` }}
-                />
+            <div className="hidden md:block">
+              <Button
+                variant={"outline"}
+                /* scale-75 hover:box-shadow md:scale-100 mt-10 bg-transparent rounded-sm border-2 border-dashed w-44 h-14 text-[#ff3332] neon-text font-bold text-2xl border-[#ff3332] hover:bg-[#ff3332] hover:text-[#0e0101] hover:border-[#0e0101] sm:hover:scale-110 transform transition-all */
+                className="scale-75 md:scale-100 mt-10 bg-transparent rounded-sm border-2 border-dashed w-44 h-14 text-[#ff3332]  text-2xl border-[#ff3332] sm:hover:scale-110 transform transition-all relative text-center font-bold neon-text hover:bg-transparent"
+                onMouseDown={handleMouseDown}
+              >
+                {isHolding && (
+                  <div
+                    className="absolute inset-0 bg-[#ff3332] rounded-md"
+                    style={{ width: `${progress}%` }}
+                  />
+                )}
+                <p className="z-30">CONTINUE</p>
+              </Button>
+              {errorMessage && (
+                <p className="text-[#ff3332] text-xs font-bold uppercase">
+                  {errorMessage}
+                </p>
               )}
-              <p className="z-30">CONTINUE</p>
-            </Button>
-            {errorMessage && (
-              <p className="text-[#ff3332] text-xs font-bold uppercase">
-                {errorMessage}
-              </p>
-            )}
+            </div>
+            <div className="block md:hidden">
+              <Button
+                variant={"outline"}
+                className="scale-75 md:scale-100 mt-10 bg-transparent rounded-sm border-2 border-dashed w-44 h-14 text-[#ff3332]  text-2xl border-[#ff3332] sm:hover:scale-110 transform transition-all relative text-center font-bold neon-text hover:bg-transparent"
+                onClick={() => {
+                  setProgress(100);
+                }}
+              >
+                <p className="z-30">CONTINUE</p>
+              </Button>
+            </div>
           </div>
         </>
       )}
 
       {page === 3 && (
         <>
-          <p className="text-zinc-300 text-4xl md:text-5xl font-bold uppercase neon-text-white">
+          <p className="text-zinc-300 text-3xl md:text-5xl text-center font-bold uppercase neon-text-white">
             Você conseguiu
           </p>
-          <p className="text-zinc-300 text-2xl md:text-2xl font-bold uppercase -mt-10 neon-text-white">
+          <p className="text-zinc-300 text-xl text-center md:text-2xl font-bold uppercase md:-mt-10 neon-text-white">
             A hora chegou, pegue seu ingresso
           </p>
 
           <div className="flex gap-4">
-            <div className="border border-zinc-200 bg-zinc-300 bg-opacity-40 font-bold w-40 h-20 flex flex-col items-center justify-center">
+            <div className="border border-zinc-200 bg-zinc-300 bg-opacity-40 font-bold w-32 h-16 md:w-40 md:h-20 flex flex-col items-center justify-center">
               <p className="text-zinc-300 text-xs font-bold uppercase shadow-text">
                 Nome
               </p>
@@ -276,7 +288,7 @@ const Dashboard = () => {
               </p>
             </div>
 
-            <div className="border border-zinc-200 bg-zinc-300 bg-opacity-40 font-bold w-40 h-20 flex flex-col items-center justify-center">
+            <div className="border border-zinc-200 bg-zinc-300 bg-opacity-40 font-bold w-32 h-16 md:w-40 md:h-20 flex flex-col items-center justify-center">
               <p className="text-zinc-300 text-xs font-bold uppercase shadow-text">
                 Assento
               </p>
@@ -288,14 +300,12 @@ const Dashboard = () => {
 
           <Link
             href="https://zenith-hub.vercel.app/"
-            className="underline text-zinc-300 text-base font-bold uppercase shadow-text"
+            className="underline text-zinc-300 text-sm md:text-base font-bold uppercase shadow-text"
           >
             Clique aqui para embarcar
           </Link>
         </>
       )}
-
-      <audio ref={audioRef} src="/audios/suspense.wav" />
     </div>
   );
 };

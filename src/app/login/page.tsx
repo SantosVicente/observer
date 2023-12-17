@@ -99,10 +99,6 @@ const Login = () => {
     };
   };
 
-  const redirect = () => {
-    window.location.href = "/dashboard";
-  };
-
   return (
     <div className="flex flex-col items-center relative justify-center min-h-screen py-2 gap-5 sm:gap-11 bg-[#0e0101] overflow-hidden">
       <div className="flex rounded-full bg-[#bd0302] absolute -top-[77rem] left-50 h-[80rem] w-[110rem] blur-xl" />
@@ -225,20 +221,18 @@ const Login = () => {
       <Dialog
         open={isDialogOpen}
         onOpenChange={() => {
-          setIsDialogOpen(false);
           play4();
           if (!dialogContent.error) {
-            setValues({
-              username: "",
-              password: "",
-            });
             setErrors({
               username: false,
               password: false,
             });
-            setTimeout(() => {
-              redirect();
-            }, 700);
+          } else {
+            setErrors({
+              username: true,
+              password: true,
+            });
+            setIsDialogOpen(false);
           }
         }}
       >
@@ -254,10 +248,20 @@ const Login = () => {
                 : dialogContent.message}
             </DialogTitle>
 
-            <DialogDescription className="text-zinc-900 uppercase text-center font-bold">
+            <DialogDescription className="text-zinc-900 uppercase text-sm md:text:base text-center font-bold">
               {dialogContent.error
                 ? dialogContent.message
                 : `Bem vindo! ${values.username}`}
+
+              <br />
+              {!dialogContent.error && (
+                <Link
+                  href="/dashboard"
+                  className="text-zinc-900 uppercase text-xs md:text:sm text-center font-bold underline"
+                >
+                  Acessar o dashboard
+                </Link>
+              )}
             </DialogDescription>
           </DialogHeader>
         </DialogContent>

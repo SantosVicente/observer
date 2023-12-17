@@ -10,8 +10,10 @@ const Starter = () => {
 
   const [status, setStatus] = useState(true);
   const [volume, setVolume] = useState(0.5);
+  const [pathname, setPathname] = useState("");
 
   useEffect(() => {
+    setPathname(window.location.pathname);
     if (audioRef.current && window.location.pathname === "/") {
       setStatus(false);
       audioRef.current.play();
@@ -53,7 +55,7 @@ const Starter = () => {
 
   return (
     <>
-      {window.location.pathname !== "/dashboard" && (
+      {pathname !== "/dashboard" && (
         <div className="absolute top-0 right-0 z-50 mt-4 mr-4 flex gap-6">
           <Button
             onClick={playStop}

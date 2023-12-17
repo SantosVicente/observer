@@ -1,16 +1,24 @@
 "use client";
 
 import Title from "@/components/ui/title";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const Dashboard = () => {
-  const user = JSON.parse(
-    localStorage.getItem("user") || "{username:'', password: ''}"
-  );
+  const [user, setUser] = useState({
+    username: "",
+    password: "",
+  });
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
+    setUser(
+      JSON.parse(
+        localStorage.getItem("user") ||
+          "{username: 'User', password: 'Password'}"
+      )
+    );
+
     if (audioRef.current) {
       audioRef.current.play();
     } else {

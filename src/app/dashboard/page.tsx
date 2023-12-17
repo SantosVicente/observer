@@ -5,6 +5,8 @@ import Title from "@/components/ui/title";
 import { useCallback, useEffect, useRef, useState } from "react";
 import "./dashboard.css";
 import Link from "next/link";
+import ScrollAnimation from "@/components/ui/framer";
+import page from "../(home)/page";
 
 const Dashboard = () => {
   const [page, setPage] = useState(0);
@@ -121,137 +123,169 @@ const Dashboard = () => {
       )}
       {page === 0 && (
         <>
-          <Title title="Welcome," />
-          <p className="text-[#ff3332] text-2xl md:text-4xl font-bold uppercase neon-text">
-            Lucky participant!
-          </p>
-
+          <ScrollAnimation delay={0.1} duration={0.3} y={150}>
+            <Title title="Welcome," />
+          </ScrollAnimation>
+          <ScrollAnimation delay={0.2} duration={0.3} y={150}>
+            <p className="text-[#ff3332] text-2xl md:text-4xl font-bold uppercase neon-text">
+              Lucky participant!
+            </p>
+          </ScrollAnimation>
           <div
             className="
         flex flex-col gap-2 mt-5 items-center"
           >
-            <p
-              className="
+            <ScrollAnimation delay={1} duration={0.3} y={150}>
+              <p
+                className="
           text-zinc-300 text-xs text-center mx-7 md:text-2xl font-bold uppercase neon-text"
-            >
-              Entre muitos, você foi escolhido para participar desse projeto.
-            </p>
-            <p
-              className="
+              >
+                Entre muitos, você foi escolhido para participar desse projeto.
+              </p>
+            </ScrollAnimation>
+            <ScrollAnimation delay={1.4} duration={0.3} y={150}>
+              <p
+                className="
           text-zinc-300 text-xs text-center mx-7 md:text-2xl font-bold uppercase neon-text"
-            >
-              Você foi escolhido por ter um perfil que se encaixa no que estamos
-              procurando.
-            </p>
-            <p
-              className="
+              >
+                Você foi escolhido por ter um perfil que se encaixa no que
+                estamos procurando.
+              </p>
+            </ScrollAnimation>
+            <ScrollAnimation delay={1.8} duration={0.3} y={150}>
+              <p
+                className="
           text-zinc-300 text-xs text-center mx-7 md:text-2xl font-bold uppercase neon-text"
-            >
-              E agora só tem uma escolha que você pode fazer
-            </p>
+              >
+                E agora só tem uma escolha que você pode fazer
+              </p>
+            </ScrollAnimation>
 
-            <Button
-              variant={"outline"}
-              onClick={() => {
-                setPage(1);
-              }}
-              className="scale-75 hover:box-shadow md:scale-100 mt-5 sm:mt-10 bg-transparent rounded-sm border-2 border-dashed w-44 h-14 text-[#ff3332] neon-text font-bold text-2xl border-[#ff3332] hover:bg-[#ff3332] hover:text-[#0e0101] hover:border-[#0e0101] sm:hover:scale-110 transform transition-all"
-            >
-              YES
-            </Button>
+            <ScrollAnimation delay={2.7} duration={0.3} y={150}>
+              <Button
+                variant={"outline"}
+                onClick={() => {
+                  setPage(1);
+                }}
+                className="scale-75 hover:box-shadow md:scale-100 mt-5 sm:mt-10 bg-transparent rounded-sm border-2 border-dashed w-44 h-14 text-[#ff3332] neon-text font-bold text-2xl border-[#ff3332] hover:bg-[#ff3332] hover:text-[#0e0101] hover:border-[#0e0101] sm:hover:scale-110 transform transition-all"
+              >
+                YES
+              </Button>
+            </ScrollAnimation>
           </div>
         </>
       )}
 
       {page === 1 && (
         <>
-          <p className="text-[#ff3332] text-3xl md:text-5xl font-bold uppercase neon-text">
-            {"Are you ready?"}
-          </p>
-
-          <p className="text-[#ff3332] text-2xl md:text-4xl font-bold uppercase neon-text">
-            {"You can't go back"}
-          </p>
-
+          <ScrollAnimation delay={0.1} duration={0.3} y={150}>
+            <p className="text-[#ff3332] text-3xl md:text-5xl font-bold uppercase neon-text">
+              {"Are you ready?"}
+            </p>
+          </ScrollAnimation>
+          <ScrollAnimation delay={0.5} duration={0.3} y={150}>
+            <p className="text-[#ff3332] text-2xl md:text-4xl font-bold uppercase neon-text">
+              {"You can't go back"}
+            </p>
+          </ScrollAnimation>
           <div
             className="
         flex flex-col gap-2 mt-5 items-center"
           >
-            <p
-              className="
+            <ScrollAnimation delay={0.7} duration={0.3} y={150}>
+              <p
+                className="
           text-zinc-300 text-xl md:text-2xl font-bold uppercase neon-text"
-            >
-              Você está pronto?
-            </p>
-            <p
-              className="
+              >
+                Você está pronto?
+              </p>
+            </ScrollAnimation>
+            <ScrollAnimation delay={0.8} duration={0.3} y={150}>
+              <p
+                className="
           text-zinc-300 text-xl md:text-2xl font-bold uppercase neon-text"
-            >
-              Não tem mais volta
-            </p>
-
-            <Button
-              variant={"outline"}
-              onClick={() => {
-                setPage(2);
-              }}
-              className="scale-75 hover:box-shadow md:scale-100 mt-10 bg-transparent rounded-sm border-2 border-dashed w-44 h-14 text-[#ff3332] neon-text font-bold text-2xl border-[#ff3332] hover:bg-[#ff3332] hover:text-[#0e0101] hover:border-[#0e0101] sm:hover:scale-110 transform transition-all"
-            >
-              YES
-            </Button>
+              >
+                Não tem mais volta
+              </p>
+            </ScrollAnimation>
+            <ScrollAnimation delay={1} duration={0.3} y={150}>
+              <Button
+                variant={"outline"}
+                onClick={() => {
+                  setPage(2);
+                }}
+                className="scale-75 hover:box-shadow md:scale-100 mt-10 bg-transparent rounded-sm border-2 border-dashed w-44 h-14 text-[#ff3332] neon-text font-bold text-2xl border-[#ff3332] hover:bg-[#ff3332] hover:text-[#0e0101] hover:border-[#0e0101] sm:hover:scale-110 transform transition-all"
+              >
+                YES
+              </Button>
+            </ScrollAnimation>
           </div>
         </>
       )}
 
       {page === 2 && (
         <>
-          <Title title="Good luck," />
-          <p className="text-[#ff3332] text-2xl md:text-4xl font-bold uppercase neon-text">
-            {user.username}
-          </p>
+          <ScrollAnimation delay={0.1} duration={0.3} y={150}>
+            <Title title="Good luck," />
+          </ScrollAnimation>
+          <ScrollAnimation delay={0.4} duration={0.3} y={150}>
+            <p className="text-[#ff3332] text-2xl md:text-4xl font-bold uppercase neon-text">
+              {user.username}
+            </p>
+          </ScrollAnimation>
 
           <div
             className="
         flex flex-col gap-2 mt-5 items-center"
           >
-            <p
-              className="
+            <ScrollAnimation delay={0.6} duration={0.3} y={150}>
+              <p
+                className="
           text-zinc-300 text-xl md:text-2xl font-bold uppercase neon-text"
-            >
-              Você foi avisado
-            </p>
-            <p
-              className="
-          text-zinc-300 text-xl md:text-2xl font-bold uppercase neon-text"
-            >
-              Boa sorte
-            </p>
-            <p
-              className="
-          text-zinc-300 text-xl md:text-2xl font-bold uppercase neon-text"
-            >
-              Você vai precisar
-            </p>
-
-            <div className="hidden md:block">
-              <Button
-                variant={"outline"}
-                /* scale-75 hover:box-shadow md:scale-100 mt-10 bg-transparent rounded-sm border-2 border-dashed w-44 h-14 text-[#ff3332] neon-text font-bold text-2xl border-[#ff3332] hover:bg-[#ff3332] hover:text-[#0e0101] hover:border-[#0e0101] sm:hover:scale-110 transform transition-all */
-                className="scale-75 md:scale-100 mt-10 bg-transparent rounded-sm border-2 border-dashed w-44 h-14 text-[#ff3332]  text-2xl border-[#ff3332] sm:hover:scale-110 transform transition-all relative text-center font-bold neon-text hover:bg-transparent"
-                onMouseDown={handleMouseDown}
               >
-                {isHolding && (
-                  <div
-                    className="absolute inset-0 bg-[#ff3332] rounded-md"
-                    style={{ width: `${progress}%` }}
-                  />
-                )}
-                <p className="z-30">CONTINUE</p>
-              </Button>
+                Você foi avisado
+              </p>
+            </ScrollAnimation>
+            <ScrollAnimation delay={0.7} duration={0.3} y={150}>
+              <p
+                className="
+          text-zinc-300 text-xl md:text-2xl font-bold uppercase neon-text"
+              >
+                Boa sorte
+              </p>
+            </ScrollAnimation>
+            <ScrollAnimation delay={0.8} duration={0.3} y={150}>
+              <p
+                className="
+          text-zinc-300 text-xl md:text-2xl font-bold uppercase neon-text"
+              >
+                Você vai precisar
+              </p>
+            </ScrollAnimation>
+
+            <div className="hidden md:flex items-center justify-center flex-col gap-4">
+              <ScrollAnimation delay={1.2} duration={0.3} y={150}>
+                <Button
+                  variant={"outline"}
+                  /* scale-75 hover:box-shadow md:scale-100 mt-10 bg-transparent rounded-sm border-2 border-dashed w-44 h-14 text-[#ff3332] neon-text font-bold text-2xl border-[#ff3332] hover:bg-[#ff3332] hover:text-[#0e0101] hover:border-[#0e0101] sm:hover:scale-110 transform transition-all */
+                  className="scale-75 md:scale-100 mt-10 bg-transparent rounded-sm border-2 border-dashed w-44 h-14 text-[#ff3332]  text-2xl border-[#ff3332] sm:hover:scale-110 transform transition-all relative text-center font-bold neon-text hover:bg-transparent"
+                  onMouseDown={handleMouseDown}
+                >
+                  {isHolding && (
+                    <div
+                      className="absolute inset-0 bg-[#ff3332] rounded-md"
+                      style={{ width: `${progress}%` }}
+                    />
+                  )}
+                  <p className="z-30">CONTINUE</p>
+                </Button>
+              </ScrollAnimation>
               {errorMessage && (
-                <p className="text-[#ff3332] text-xs font-bold uppercase">
-                  {errorMessage}
-                </p>
+                <ScrollAnimation delay={0.1} duration={0.3} y={150}>
+                  <p className="text-[#ff3332] text-xs font-bold uppercase">
+                    {errorMessage}
+                  </p>
+                </ScrollAnimation>
               )}
             </div>
             <div className="block md:hidden">
@@ -271,39 +305,48 @@ const Dashboard = () => {
 
       {page === 3 && (
         <>
-          <p className="text-zinc-300 text-3xl md:text-5xl text-center font-bold uppercase neon-text-white">
-            Você conseguiu
-          </p>
-          <p className="text-zinc-300 text-xl text-center md:text-2xl font-bold uppercase md:-mt-10 neon-text-white">
-            A hora chegou, pegue seu ingresso
-          </p>
-
+          <ScrollAnimation delay={0.1} duration={0.3} y={150}>
+            <p className="text-zinc-300 text-3xl md:text-5xl text-center font-bold uppercase neon-text-white">
+              Você conseguiu
+            </p>
+          </ScrollAnimation>
+          <ScrollAnimation delay={0.2} duration={0.3} y={150}>
+            <p className="text-zinc-300 text-xl text-center md:text-2xl font-bold uppercase md:-mt-10 neon-text-white">
+              A hora chegou, pegue seu ingresso
+            </p>
+          </ScrollAnimation>
           <div className="flex gap-4">
-            <div className="border border-zinc-200 bg-zinc-300 bg-opacity-40 font-bold w-32 h-16 md:w-40 md:h-20 flex flex-col items-center justify-center">
-              <p className="text-zinc-300 text-xs font-bold uppercase shadow-text">
-                Nome
-              </p>
-              <p className="text-zinc-300 text-base font-bold uppercase shadow-text">
-                {user.username}
-              </p>
-            </div>
+            <ScrollAnimation delay={0.3} duration={0.3} y={150}>
+              <div className="border border-zinc-200 bg-zinc-300 bg-opacity-40 font-bold w-32 h-16 md:w-40 md:h-20 flex flex-col items-center justify-center">
+                <p className="text-zinc-300 text-xs font-bold uppercase shadow-text">
+                  Nome
+                </p>
+                <p className="text-zinc-300 text-base font-bold uppercase shadow-text">
+                  {user.username}
+                </p>
+              </div>
+            </ScrollAnimation>
 
-            <div className="border border-zinc-200 bg-zinc-300 bg-opacity-40 font-bold w-32 h-16 md:w-40 md:h-20 flex flex-col items-center justify-center">
-              <p className="text-zinc-300 text-xs font-bold uppercase shadow-text">
-                Assento
-              </p>
-              <p className="text-zinc-300 text-base font-bold uppercase shadow-text">
-                P-20
-              </p>
-            </div>
+            <ScrollAnimation delay={0.4} duration={0.3} y={150}>
+              <div className="border border-zinc-200 bg-zinc-300 bg-opacity-40 font-bold w-32 h-16 md:w-40 md:h-20 flex flex-col items-center justify-center">
+                <p className="text-zinc-300 text-xs font-bold uppercase shadow-text">
+                  Assento
+                </p>
+                <p className="text-zinc-300 text-base font-bold uppercase shadow-text">
+                  P-20
+                </p>
+              </div>
+            </ScrollAnimation>
           </div>
 
-          <Link
-            href="https://zenith-hub.vercel.app/"
-            className="underline text-zinc-300 text-sm md:text-base font-bold uppercase shadow-text"
-          >
-            Clique aqui para embarcar
-          </Link>
+          <ScrollAnimation delay={0.5} duration={0.3} y={150}>
+            <Link
+              href="https://zenith-hub.vercel.app/"
+              className="underline text-zinc-300 text-sm md:text-base font-bold uppercase shadow-text"
+            >
+              Clique aqui para embarcar
+            </Link>
+          </ScrollAnimation>
         </>
       )}
     </div>

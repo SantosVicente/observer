@@ -9,6 +9,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import Footer from "@/components/ui/footer";
+import ScrollAnimation from "@/components/ui/framer";
 import Title from "@/components/ui/title";
 import {
   Tooltip,
@@ -104,7 +105,9 @@ const Login = () => {
       <div className="flex rounded-full bg-[#bd0302] absolute -top-[77rem] left-50 h-[80rem] w-[110rem] blur-xl" />
       <div className="flex rounded-full bg-[#bd0302] absolute -top-[77rem] left-50 h-[80rem] w-[110rem] blur-xl" />
 
-      <Title title="Login" />
+      <ScrollAnimation delay={0.1} duration={0.3} y={150}>
+        <Title title="Login" />
+      </ScrollAnimation>
 
       <TooltipProvider>
         <Tooltip>
@@ -128,93 +131,102 @@ const Login = () => {
       </TooltipProvider>
 
       <form className="flex flex-col gap-4 items-center justify-center">
-        <div className="flex flex-col gap-2 relative">
-          <label className="uppercase font-bold text-sm text-zinc-300">
-            USERNAME
-          </label>
-          <input
-            value={values.username}
-            required
-            onKeyDown={play}
-            onChange={(e) => {
-              setValues({ ...values, username: e.target.value });
+        <ScrollAnimation delay={0.2} duration={0.3} y={150}>
+          <div className="flex flex-col gap-2 relative">
+            <label className="uppercase font-bold text-sm text-zinc-300">
+              USERNAME
+            </label>
+            <input
+              value={values.username}
+              required
+              onKeyDown={play}
+              onChange={(e) => {
+                setValues({ ...values, username: e.target.value });
+              }}
+              className={`bg-transparent ${
+                errors.username
+                  ? "border-[#ff3332]"
+                  : "border-zinc-500 focus:border-zinc-50"
+              } border rounded-none w-64 md:w-[25rem] h-10 sm:h-12 text-zinc-100 font-bold px-3 outline-none transition-all`}
+            />
+          </div>
+        </ScrollAnimation>
+
+        <ScrollAnimation delay={0.3} duration={0.3} y={150}>
+          <div className="flex flex-col gap-2 relative">
+            <label className="uppercase font-bold text-sm text-zinc-300">
+              PASSWORD
+            </label>
+            <input
+              value={values.password}
+              type="password"
+              required
+              onKeyDown={play}
+              onChange={(e) => {
+                setValues({ ...values, password: e.target.value });
+              }}
+              className={`bg-transparent ${
+                errors.password
+                  ? "border-[#ff3332]"
+                  : "border-zinc-500 focus:border-zinc-50"
+              } border rounded-none w-64 md:w-[25rem] h-10 sm:h-12 text-zinc-100 font-bold px-3 outline-none transition-all`}
+            />
+          </div>
+        </ScrollAnimation>
+
+        <ScrollAnimation delay={0.4} duration={0.3} y={150}>
+          <Button
+            variant={"outline"}
+            onMouseEnter={() => {
+              play3();
             }}
-            className={`bg-transparent ${
-              errors.username
-                ? "border-[#ff3332]"
-                : "border-zinc-500 focus:border-zinc-50"
-            } border rounded-none w-64 md:w-[25rem] h-10 sm:h-12 text-zinc-100 font-bold px-3 outline-none transition-all`}
-          />
-        </div>
+            onClick={(e) => {
+              e.preventDefault();
+              play2();
 
-        <div className="flex flex-col gap-2 relative">
-          <label className="uppercase font-bold text-sm text-zinc-300">
-            PASSWORD
-          </label>
-          <input
-            value={values.password}
-            type="password"
-            required
-            onKeyDown={play}
-            onChange={(e) => {
-              setValues({ ...values, password: e.target.value });
-            }}
-            className={`bg-transparent ${
-              errors.password
-                ? "border-[#ff3332]"
-                : "border-zinc-500 focus:border-zinc-50"
-            } border rounded-none w-64 md:w-[25rem] h-10 sm:h-12 text-zinc-100 font-bold px-3 outline-none transition-all`}
-          />
-        </div>
+              const valuesVerify = verifyValues();
 
-        <Button
-          variant={"outline"}
-          onMouseEnter={() => {
-            play3();
-          }}
-          onClick={(e) => {
-            e.preventDefault();
-            play2();
+              if (!valuesVerify?.error) {
+                const res = send();
 
-            const valuesVerify = verifyValues();
-
-            if (!valuesVerify?.error) {
-              const res = send();
-
-              if (!res?.error) {
-                setDialogContent({
-                  message: "[✓] CONNEXÃO ESTABELECIDA",
-                  error: false,
-                });
+                if (!res?.error) {
+                  setDialogContent({
+                    message: "[✓] CONNEXÃO ESTABELECIDA",
+                    error: false,
+                  });
+                } else {
+                  setDialogContent({
+                    message: "[ ! ] FALHA AO LOGAR",
+                    error: true,
+                  });
+                }
               } else {
                 setDialogContent({
-                  message: "[ ! ] FALHA AO LOGAR",
+                  message: valuesVerify.message,
                   error: true,
                 });
               }
-            } else {
-              setDialogContent({
-                message: valuesVerify.message,
-                error: true,
-              });
-            }
 
-            setTimeout(() => {
-              setIsDialogOpen(true);
-            }, 1000);
-          }}
-          className="bg-transparent rounded-sm border-2 w-64 md:w-[25rem] h-12 sm:h-14 mt-4 text-[#ff3332] neon-text font-bold text-lg border-[#ff3332] hover:bg-[#ff3332] hover:text-[#0e0101] hover:border-[#0e0101] hover:scale-110 transform transition-all"
-        >
-          SUBMIT
-        </Button>
+              setTimeout(() => {
+                setIsDialogOpen(true);
+              }, 1000);
+            }}
+            className="bg-transparent rounded-sm border-2 w-64 md:w-[25rem] h-12 sm:h-14 mt-4 text-[#ff3332] neon-text font-bold text-lg border-[#ff3332] hover:bg-[#ff3332] hover:text-[#0e0101] hover:border-[#0e0101] hover:scale-110 transform transition-all"
+          >
+            SUBMIT
+          </Button>
+        </ScrollAnimation>
         <audio ref={audioRef2} src="/audios/failed1.wav"></audio>
         <audio ref={audioRef3} src="/audios/success1.wav"></audio>
-        <Link
-          href="/signup"
-          className="uppercase font-bold text-sm text-center underline"
-        >
-          {"Don't have an account? Sign up"}
-        </Link>
+
+        <ScrollAnimation delay={0.5} duration={0.3} y={150}>
+          <Link
+            href="/signup"
+            className="uppercase font-bold text-sm text-center underline"
+          >
+            {"Don't have an account? Sign up"}
+          </Link>
+        </ScrollAnimation>
       </form>
 
       <audio ref={audioRef4} src="/audios/closemodal.wav"></audio>

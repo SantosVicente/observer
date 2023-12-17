@@ -18,9 +18,48 @@ import {
 } from "@/components/ui/tooltip";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const Login = () => {
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const audioRef2 = useRef<HTMLAudioElement>(null);
+  const audioRef3 = useRef<HTMLAudioElement>(null);
+  const audioRef4 = useRef<HTMLAudioElement>(null);
+
+  const play = () => {
+    if (audioRef.current) {
+      const newAudio = new Audio(audioRef.current.src);
+      newAudio.volume = 1;
+      newAudio.play();
+    } else {
+      console.log("audioRef.current is not defined");
+    }
+  };
+
+  const play2 = () => {
+    if (audioRef2.current) {
+      audioRef2.current.play();
+    } else {
+      console.log("audioRef2.current is not defined");
+    }
+  };
+
+  const play3 = () => {
+    if (audioRef3.current) {
+      audioRef3.current.play();
+    } else {
+      console.log("audioRef3.current is not defined");
+    }
+  };
+
+  const play4 = () => {
+    if (audioRef4.current) {
+      audioRef4.current.play();
+    } else {
+      console.log("audioRef4.current is not defined");
+    }
+  };
+
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogContent, setDialogContent] = useState({
     message: "",
@@ -64,7 +103,7 @@ const Login = () => {
   };
 
   const redirect = () => {
-    console.log("Redirecionando...");
+    window.location.href = "/dashboard";
   };
 
   return (
@@ -75,9 +114,19 @@ const Login = () => {
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger className=" absolute top-0 left-0 mt-4 ml-4">
-            <Link href="/">
+            <div
+              onMouseEnter={() => {
+                play3();
+              }}
+              onClick={() => {
+                play2();
+                setTimeout(() => {
+                  window.location.href = "/";
+                }, 700);
+              }}
+            >
               <ArrowLeft className="text-zinc-400 h-10 w-10 " />
-            </Link>
+            </div>
           </TooltipTrigger>
           <TooltipContent>
             <p>Return to Home</p>
@@ -93,6 +142,7 @@ const Login = () => {
           <input
             value={values.username}
             required
+            onKeyDown={play}
             onChange={(e) => {
               setValues({ ...values, username: e.target.value });
             }}
@@ -112,6 +162,7 @@ const Login = () => {
             value={values.password}
             type="password"
             required
+            onKeyDown={play}
             onChange={(e) => {
               setValues({ ...values, password: e.target.value });
             }}
@@ -125,8 +176,13 @@ const Login = () => {
 
         <Button
           variant={"outline"}
+          onMouseEnter={() => {
+            play3();
+          }}
           onClick={(e) => {
             e.preventDefault();
+            play2();
+
             const valuesVerify = verifyValues();
 
             if (!valuesVerify?.error) {
@@ -158,6 +214,8 @@ const Login = () => {
         >
           SUBMIT
         </Button>
+        <audio ref={audioRef2} src="/audios/failed1.wav"></audio>
+        <audio ref={audioRef3} src="/audios/success1.wav"></audio>
         <Link
           href="/signup"
           className="uppercase font-bold text-sm text-center underline"
@@ -166,12 +224,24 @@ const Login = () => {
         </Link>
       </form>
 
+      <audio ref={audioRef4} src="/audios/closemodal.wav"></audio>
       <Dialog
         open={isDialogOpen}
         onOpenChange={() => {
           setIsDialogOpen(false);
+          play4();
           if (!dialogContent.error) {
-            redirect();
+            setValues({
+              username: "",
+              password: "",
+            });
+            setErrors({
+              username: false,
+              password: false,
+            });
+            setTimeout(() => {
+              redirect();
+            }, 700);
           }
         }}
       >
@@ -196,6 +266,8 @@ const Login = () => {
       </Dialog>
 
       <Footer />
+
+      <audio ref={audioRef} src="/audios/sound1.wav"></audio>
     </div>
   );
 };

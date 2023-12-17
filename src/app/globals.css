@@ -72,8 +72,17 @@
     text-shadow: 0 0 1px #0ce4d8, 0 0 6px #0ce4d8;
   }
 
+  .neon-text-white {
+    line-height: 2;
+    text-shadow: 0 0 1px #fff, 0 0 6px aliceblue;
+  }
+
   .box-shadow {
     box-shadow: 0 0 10px #ff3332, 0 0 20px #bd0302;
+  }
+
+  .shadow-text {
+    text-shadow: 0 0 1px black;
   }
 
   .eye {

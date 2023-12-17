@@ -65,6 +65,7 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center relative justify-center min-h-screen py-2 gap-11 bg-[#0e0101] overflow-hidden">
       <div className="flex rounded-full bg-[#bd0302] absolute -top-[77rem] left-50 h-[80rem] w-[110rem] blur-xl" />
+      <div className="flex rounded-full bg-[#bd0302] absolute -top-[77rem] left-50 h-[80rem] w-[110rem] blur-xl" />
 
       <div className="flex flex-col gap-2 mt-5 items-center">
         <div className="h-[4.5rem] w-52 flex z-0 items-center relative justify-center bg-transparent eye ">

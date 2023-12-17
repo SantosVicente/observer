@@ -11,6 +11,7 @@ import {
 import Footer from "@/components/ui/footer";
 import Title from "@/components/ui/title";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
 
 export default function Home() {
@@ -21,7 +22,6 @@ export default function Home() {
   const audioRef2 = useRef<HTMLAudioElement>(null);
   const audioRef3 = useRef<HTMLAudioElement>(null);
   const audioRef4 = useRef<HTMLAudioElement>(null);
-  const audioRef5 = useRef<HTMLAudioElement>(null);
 
   const play = () => {
     if (audioRef.current) {
@@ -61,14 +61,6 @@ export default function Home() {
     }, Math.floor(Math.random() * 5000 - 2000) + 1000); //não quero que o tempo seja fixo, quero que seja aleatório
     return () => clearInterval(interval);
   }, [isDisabled]);
-
-  useEffect(() => {
-    if (audioRef5.current) {
-      audioRef5.current.play();
-    } else {
-      console.log("audioRef5.current is not defined");
-    }
-  }, []);
 
   return (
     <div className="flex flex-col items-center relative justify-center min-h-screen py-2 gap-11 bg-[#0e0101] overflow-hidden">
@@ -146,21 +138,22 @@ export default function Home() {
           </DialogContent>
         </Dialog>
 
-        <Button
-          variant={"outline"}
-          onMouseEnter={() => {
-            play();
-          }}
+        <Link
+          href="/login"
           onClick={() => {
             play3();
-            setTimeout(() => {
-              window.location.href = "/login";
-            }, 1000);
           }}
-          className="scale-75 md:scale-100 bg-transparent rounded-sm border-2 w-44 h-14 text-[#ff3332] neon-text font-bold text-lg border-[#ff3332] hover:bg-[#ff3332] hover:text-[#0e0101] hover:border-[#0e0101] sm:hover:scale-110 transform transition-all"
         >
-          COMPETITOR
-        </Button>
+          <Button
+            variant={"outline"}
+            onMouseEnter={() => {
+              play();
+            }}
+            className="scale-75 md:scale-100 bg-transparent rounded-sm border-2 w-44 h-14 text-[#ff3332] neon-text font-bold text-lg border-[#ff3332] hover:bg-[#ff3332] hover:text-[#0e0101] hover:border-[#0e0101] sm:hover:scale-110 transform transition-all"
+          >
+            COMPETITOR
+          </Button>
+        </Link>
 
         <audio ref={audioRef3} src="/audios/submit1.wav"></audio>
         <audio ref={audioRef} src="/audios/closemodal.wav"></audio>
@@ -171,8 +164,6 @@ export default function Home() {
       </p>
 
       <Footer />
-
-      <audio ref={audioRef5} loop src="/audios/trilha.mp3"></audio>
     </div>
   );
 }

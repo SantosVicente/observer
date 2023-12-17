@@ -25,7 +25,6 @@ const Signup = () => {
   const audioRef2 = useRef<HTMLAudioElement>(null);
   const audioRef3 = useRef<HTMLAudioElement>(null);
   const audioRef4 = useRef<HTMLAudioElement>(null);
-  const audioRef5 = useRef<HTMLAudioElement>(null);
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogContent, setDialogContent] = useState({
@@ -79,14 +78,6 @@ const Signup = () => {
     }
   };
 
-  useEffect(() => {
-    if (audioRef5.current) {
-      audioRef5.current.play();
-    } else {
-      console.log("audioRef5.current is not defined");
-    }
-  }, []);
-
   const isValidToken = (token: string) => {
     if (token === "123456") {
       return true;
@@ -127,10 +118,6 @@ const Signup = () => {
     };
   };
 
-  const redirect = () => {
-    window.location.href = "/login";
-  };
-
   return (
     <div className="flex flex-col items-center relative justify-center min-h-screen py-2 gap-5 sm:gap-11 bg-[#0e0101] overflow-hidden">
       <div className="flex rounded-full bg-[#bd0302] absolute -top-[77rem] left-50 h-[80rem] w-[110rem] blur-xl" />
@@ -143,6 +130,9 @@ const Signup = () => {
               href="/"
               onMouseEnter={() => {
                 play3();
+              }}
+              onClick={() => {
+                play2();
               }}
             >
               <ArrowLeft className="text-zinc-400 h-10 w-10 " />
@@ -304,9 +294,6 @@ const Signup = () => {
               password: false,
               token: false,
             });
-            setTimeout(() => {
-              redirect();
-            }, 700);
           }
         }}
       >
@@ -321,11 +308,19 @@ const Signup = () => {
                 ? "[ ! ] Falha ao criar conta"
                 : dialogContent.message}
             </DialogTitle>
-            {dialogContent.error && (
-              <DialogDescription className="text-zinc-900 uppercase text-center font-bold">
-                {dialogContent.message}
-              </DialogDescription>
-            )}
+
+            <DialogDescription className="text-zinc-900 uppercase text-center font-bold">
+              {dialogContent.error ? (
+                dialogContent.message
+              ) : (
+                <Link
+                  href="/login"
+                  className="text-zinc-900 uppercase text-center font-bold underline"
+                >
+                  Clique aqui para ir ao login
+                </Link>
+              )}
+            </DialogDescription>
           </DialogHeader>
         </DialogContent>
       </Dialog>
@@ -333,7 +328,6 @@ const Signup = () => {
       <Footer isSignup />
 
       <audio ref={audioRef} src="/audios/sound1.wav"></audio>
-      <audio ref={audioRef5} loop src="/audios/trilha.mp3"></audio>
     </div>
   );
 };

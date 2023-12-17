@@ -18,14 +18,13 @@ import {
 } from "@/components/ui/tooltip";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 const Login = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const audioRef2 = useRef<HTMLAudioElement>(null);
   const audioRef3 = useRef<HTMLAudioElement>(null);
   const audioRef4 = useRef<HTMLAudioElement>(null);
-  const audioRef5 = useRef<HTMLAudioElement>(null);
 
   const play = () => {
     if (audioRef.current) {
@@ -61,14 +60,6 @@ const Login = () => {
     }
   };
 
-  useEffect(() => {
-    if (audioRef5.current) {
-      audioRef5.current.play();
-    } else {
-      console.log("audioRef5.current is not defined");
-    }
-  }, []);
-
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogContent, setDialogContent] = useState({
     message: "",
@@ -102,10 +93,7 @@ const Login = () => {
   };
 
   const send = () => {
-    console.log("Enviando dados para o servidor...");
-    console.log(values);
-    console.log("Dados enviados com sucesso!");
-
+    localStorage.setItem("user", JSON.stringify(values));
     return {
       error: false,
     };
@@ -123,19 +111,17 @@ const Login = () => {
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger className=" absolute top-0 left-0 mt-4 ml-4">
-            <div
+            <Link
+              href="/"
               onMouseEnter={() => {
                 play3();
               }}
               onClick={() => {
                 play2();
-                setTimeout(() => {
-                  window.location.href = "/";
-                }, 700);
               }}
             >
               <ArrowLeft className="text-zinc-400 h-10 w-10 " />
-            </div>
+            </Link>
           </TooltipTrigger>
           <TooltipContent>
             <p>Return to Home</p>
@@ -265,11 +251,12 @@ const Login = () => {
                 ? "[ ! ] Falha ao logar"
                 : dialogContent.message}
             </DialogTitle>
-            {dialogContent.error && (
-              <DialogDescription className="text-zinc-900 uppercase text-center font-bold">
-                {dialogContent.message}
-              </DialogDescription>
-            )}
+
+            <DialogDescription className="text-zinc-900 uppercase text-center font-bold">
+              {dialogContent.error
+                ? dialogContent.message
+                : `Bem vindo! ${values.username}`}
+            </DialogDescription>
           </DialogHeader>
         </DialogContent>
       </Dialog>
@@ -277,7 +264,6 @@ const Login = () => {
       <Footer />
 
       <audio ref={audioRef} src="/audios/sound1.wav"></audio>
-      <audio ref={audioRef5} loop src="/audios/trilha.mp3"></audio>
     </div>
   );
 };

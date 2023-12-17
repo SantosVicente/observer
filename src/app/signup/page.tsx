@@ -18,13 +18,14 @@ import {
 } from "@/components/ui/tooltip";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const Signup = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const audioRef2 = useRef<HTMLAudioElement>(null);
   const audioRef3 = useRef<HTMLAudioElement>(null);
   const audioRef4 = useRef<HTMLAudioElement>(null);
+  const audioRef5 = useRef<HTMLAudioElement>(null);
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogContent, setDialogContent] = useState({
@@ -77,6 +78,14 @@ const Signup = () => {
       console.log("audioRef4.current is not defined");
     }
   };
+
+  useEffect(() => {
+    if (audioRef5.current) {
+      audioRef5.current.play();
+    } else {
+      console.log("audioRef5.current is not defined");
+    }
+  }, []);
 
   const isValidToken = (token: string) => {
     if (token === "123456") {
@@ -324,6 +333,7 @@ const Signup = () => {
       <Footer isSignup />
 
       <audio ref={audioRef} src="/audios/sound1.wav"></audio>
+      <audio ref={audioRef5} loop src="/audios/trilha.mp3"></audio>
     </div>
   );
 };

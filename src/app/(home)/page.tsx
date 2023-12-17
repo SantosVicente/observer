@@ -172,7 +172,7 @@ export default function Home() {
 
       <Footer />
 
-      <audio ref={audioRef5} src="/audios/suspense.wav"></audio>
+      <audio ref={audioRef5} loop src="/audios/trilha.mp3"></audio>
     </div>
   );
 }

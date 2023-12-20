@@ -6,9 +6,65 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import "./dashboard.css";
 import Link from "next/link";
 import ScrollAnimation from "@/components/ui/framer";
+import { progress } from "framer-motion";
 import page from "../(home)/page";
 
 const Dashboard = () => {
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const audioRef2 = useRef<HTMLAudioElement>(null);
+  const audioRef3 = useRef<HTMLAudioElement>(null);
+  const audioRef4 = useRef<HTMLAudioElement>(null);
+
+  const [shouldPlayAudio, setShouldPlayAudio] = useState(true);
+
+  useEffect(() => {
+    if (shouldPlayAudio) {
+      play();
+      setShouldPlayAudio(false);
+    }
+  }, [shouldPlayAudio]);
+
+  const play = () => {
+    if (audioRef.current) {
+      audioRef.current.play();
+    } else {
+      console.log("audioRef.current is not defined");
+    }
+  };
+
+  const stop = () => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    } else {
+      console.log("audioRef.current is not defined");
+    }
+  };
+
+  const play2 = () => {
+    if (audioRef2.current) {
+      audioRef2.current.play();
+    } else {
+      console.log("audioRef2.current is not defined");
+    }
+  };
+
+  const play3 = () => {
+    if (audioRef3.current) {
+      audioRef3.current.play();
+    } else {
+      console.log("audioRef3.current is not defined");
+    }
+  };
+
+  const play4 = () => {
+    if (audioRef4.current) {
+      audioRef4.current.play();
+    } else {
+      console.log("audioRef4.current is not defined");
+    }
+  };
+
   const [page, setPage] = useState(0);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [errorMessageNumber, setErrorMessageNumber] = useState(0);
@@ -33,6 +89,7 @@ const Dashboard = () => {
 
       if (progress === 100) {
         setPage(3);
+        setShouldPlayAudio(true);
         setErrorMessage(null);
       } else {
         setProgress(0);
@@ -66,6 +123,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (progress === 100) {
+      play4();
       setPage(3);
       setErrorMessage(null);
     }
@@ -88,6 +146,21 @@ const Dashboard = () => {
       });
     }
   }, []);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
+    }, 1700);
+
+    if (audioRef2.current) {
+      audioRef2.current?.pause();
+    }
+
+    return () => clearTimeout(timeoutId);
+  }, [page]);
 
   return (
     <div
@@ -135,7 +208,7 @@ const Dashboard = () => {
             className="
         flex flex-col gap-2 mt-5 items-center"
           >
-            <ScrollAnimation delay={1} duration={0.3} y={150}>
+            <ScrollAnimation delay={0.7} duration={0.3} y={150}>
               <p
                 className="
           text-zinc-300 text-xs text-center mx-7 md:text-2xl font-bold uppercase neon-text"
@@ -143,7 +216,7 @@ const Dashboard = () => {
                 Entre muitos, você foi escolhido para participar desse projeto.
               </p>
             </ScrollAnimation>
-            <ScrollAnimation delay={1.4} duration={0.3} y={150}>
+            <ScrollAnimation delay={1.1} duration={0.3} y={150}>
               <p
                 className="
           text-zinc-300 text-xs text-center mx-7 md:text-2xl font-bold uppercase neon-text"
@@ -152,7 +225,7 @@ const Dashboard = () => {
                 estamos procurando.
               </p>
             </ScrollAnimation>
-            <ScrollAnimation delay={1.8} duration={0.3} y={150}>
+            <ScrollAnimation delay={1.3} duration={0.3} y={150}>
               <p
                 className="
           text-zinc-300 text-xs text-center mx-7 md:text-2xl font-bold uppercase neon-text"
@@ -161,11 +234,16 @@ const Dashboard = () => {
               </p>
             </ScrollAnimation>
 
-            <ScrollAnimation delay={2.7} duration={0.3} y={150}>
+            <ScrollAnimation delay={2.4} duration={0.3} y={150}>
               <Button
                 variant={"outline"}
+                onMouseEnter={() => {
+                  play2();
+                }}
                 onClick={() => {
+                  play3();
                   setPage(1);
+                  setShouldPlayAudio(true);
                 }}
                 className="scale-75 hover:box-shadow md:scale-100 mt-5 sm:mt-10 bg-transparent rounded-sm border-2 border-dashed w-44 h-14 text-[#ff3332] neon-text font-bold text-2xl border-[#ff3332] hover:bg-[#ff3332] hover:text-[#0e0101] hover:border-[#0e0101] sm:hover:scale-110 transform transition-all"
               >
@@ -211,8 +289,13 @@ const Dashboard = () => {
             <ScrollAnimation delay={1} duration={0.3} y={150}>
               <Button
                 variant={"outline"}
+                onMouseEnter={() => {
+                  play2();
+                }}
                 onClick={() => {
+                  play3();
                   setPage(2);
+                  setShouldPlayAudio(true);
                 }}
                 className="scale-75 hover:box-shadow md:scale-100 mt-10 bg-transparent rounded-sm border-2 border-dashed w-44 h-14 text-[#ff3332] neon-text font-bold text-2xl border-[#ff3332] hover:bg-[#ff3332] hover:text-[#0e0101] hover:border-[#0e0101] sm:hover:scale-110 transform transition-all"
               >
@@ -310,13 +393,13 @@ const Dashboard = () => {
               Você conseguiu
             </p>
           </ScrollAnimation>
-          <ScrollAnimation delay={0.2} duration={0.3} y={150}>
+          <ScrollAnimation delay={0.5} duration={0.3} y={150}>
             <p className="text-zinc-300 text-xl text-center md:text-2xl font-bold uppercase md:-mt-10 neon-text-white">
               A hora chegou, pegue seu ingresso
             </p>
           </ScrollAnimation>
           <div className="flex gap-4">
-            <ScrollAnimation delay={0.3} duration={0.3} y={150}>
+            <ScrollAnimation delay={0.6} duration={0.3} y={150}>
               <div className="border border-zinc-200 bg-zinc-300 bg-opacity-40 font-bold w-32 h-16 md:w-40 md:h-20 flex flex-col items-center justify-center">
                 <p className="text-zinc-300 text-xs font-bold uppercase shadow-text">
                   Nome
@@ -327,7 +410,7 @@ const Dashboard = () => {
               </div>
             </ScrollAnimation>
 
-            <ScrollAnimation delay={0.4} duration={0.3} y={150}>
+            <ScrollAnimation delay={0.7} duration={0.3} y={150}>
               <div className="border border-zinc-200 bg-zinc-300 bg-opacity-40 font-bold w-32 h-16 md:w-40 md:h-20 flex flex-col items-center justify-center">
                 <p className="text-zinc-300 text-xs font-bold uppercase shadow-text">
                   Assento
@@ -339,16 +422,29 @@ const Dashboard = () => {
             </ScrollAnimation>
           </div>
 
-          <ScrollAnimation delay={0.5} duration={0.3} y={150}>
-            <Link
-              href="https://zenith-hub.vercel.app/"
-              className="underline text-zinc-300 text-sm md:text-base font-bold uppercase shadow-text"
-            >
-              Clique aqui para embarcar
-            </Link>
+          <ScrollAnimation delay={0.8} duration={0.3} y={150}>
+            <div className="transform hover:scale-110 transition-all flex flex-col gap-2 mt-5 items-center">
+              <Link
+                href="https://zenith-hub.vercel.app/"
+                className="underline text-zinc-300 text-sm md:text-base font-bold uppercase shadow-text"
+                onMouseEnter={() => {
+                  play2();
+                }}
+                onClick={() => {
+                  play3();
+                }}
+              >
+                Clique aqui para embarcar
+              </Link>
+            </div>
           </ScrollAnimation>
         </>
       )}
+
+      <audio ref={audioRef} src="/audios/hacking.wav"></audio>
+      <audio ref={audioRef2} src="/audios/success1.wav"></audio>
+      <audio ref={audioRef3} src="/audios/click1.wav"></audio>
+      <audio ref={audioRef4} src="/audios/submit1.wav"></audio>
     </div>
   );
 };

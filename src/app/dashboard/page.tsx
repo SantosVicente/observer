@@ -6,8 +6,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import "./dashboard.css";
 import Link from "next/link";
 import ScrollAnimation from "@/components/ui/framer";
-import { progress } from "framer-motion";
-import page from "../(home)/page";
 
 const Dashboard = () => {
   const audioRef = useRef<HTMLAudioElement>(null);

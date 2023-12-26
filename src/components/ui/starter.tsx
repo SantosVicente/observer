@@ -33,17 +33,6 @@ const Starter = () => {
     }
   }, [volume]);
 
-  const VolumeControl = () => (
-    <Slider
-      min={0}
-      max={1}
-      step={0.1}
-      className="w-full"
-      value={[volume]}
-      onValueChange={(value) => setVolume(value[0])}
-    />
-  );
-
   const playStop = () => {
     if (audioRef.current) {
       if (audioRef.current.paused) {
@@ -100,7 +89,15 @@ const Starter = () => {
                   ) : (
                     <Volume2 size={24} />
                   )}
-                  <VolumeControl />
+                  <Slider
+                    defaultValue={[0.5]}
+                    min={0}
+                    max={1}
+                    step={0.1}
+                    className="w-full"
+                    value={[volume]}
+                    onValueChange={(value) => setVolume(value[0])}
+                  />
                 </div>
               </div>
             </div>
